@@ -28,9 +28,10 @@ export class FeedPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedPage');
   }
-  */
+  
 
   ionViewDidLoad() {
     console.log(this.somaNumeros());
   }
+  */
 }
