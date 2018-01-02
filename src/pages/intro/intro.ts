@@ -27,7 +27,7 @@ export class IntroPage {
   }
 
   // ir para as paginas (sair da intro)
-  goToTabsPage(){
+  public goToTabsPage(){
     this.navCtrl.push(TabsPage);
   }
 
