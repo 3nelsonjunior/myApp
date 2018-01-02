@@ -12,6 +12,9 @@
   <ion-slides pager>
 
     <ion-slide class="slide_image">
+      <div class="skip">
+        <a (click)="goToTabsPage()">Skip</a>
+      </div>
       <img src="assets/imgs/bbp_logo.png" alt="">
       <h2>BBP</h2>
       <br>
@@ -23,6 +26,9 @@
     </ion-slide>
 
     <ion-slide class="slide_image">
+      <div class="skip">
+        <a (click)="goToTabsPage()">Skip</a>
+      </div>
       <img src="assets/imgs/slide4.jpg" alt="">
       <h2>BBP</h2>
       <br>
@@ -31,6 +37,11 @@
           BarberShop
         </p>
       </div>
+    </ion-slide>
+
+    <ion-slide class="slide_image">
+      <h2>Ir para as páginas</h2>
+      <a (click)="goToTabsPage()">Skip</a>
     </ion-slide>
 
   </ion-slides>
