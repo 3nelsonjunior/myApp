@@ -26,6 +26,4 @@ export class MovieProvider {
     return '8024bacbd05be7e1d1ce5cfecc6a4383';
   }
 
-
-
 }
