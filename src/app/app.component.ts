@@ -26,19 +26,17 @@ export class MyApp {
   ) {
     platform.ready().then(() => {
 
+      // busca valor no localstorage para comparar se é a primeira vez do acesso
       let config = configProvider.getConfigData();
 
+      // no primeiro acesso será 'null' localstorage então direciona para intro
       if (config == null) {
-        console.log(config);
         this.rootPage = IntroPage;
         configProvider.setConfigData(false);
-        console.log('NULL');
+      // após primeiro acesso jaá direciona para pagina principal
       } else {
         this.rootPage = TabsPage;
-        console.log('UÉ?');
       }
-
-      console.log(config);
 
       statusBar.styleDefault();
       splashScreen.hide();
