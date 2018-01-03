@@ -30,14 +30,16 @@ export class FeedPage {
 
   public loader;
   public refresher;
+  public infiniteScroll;
   public isRefleshing: boolean = false;
-  public listaFilmes = new  Array<any>();
+  public listaFilmes = new Array<any>();
+  public page = 1;
 
-  constructor(public navCtrl: NavController, 
-              public navParams: NavParams,
-              private movieProvider: MovieProvider,
-              public loadingCtrl: LoadingController
-            ) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController
+  ) {
   }
 
   // ionViewDidEnter => sempre que entrar na pagina
@@ -48,7 +50,7 @@ export class FeedPage {
   // efeito de loadindg
   abreCarregamento() {
     this.loader = this.loadingCtrl.create({
-      content: "Carregando...",
+      content: "Carregando filmes...",
     });
     this.loader.present();
   }
@@ -65,17 +67,32 @@ export class FeedPage {
     this.carregarFilmes();
   }
 
-  carregarFilmes() {
+  // carregar mais fiulmes(tipo paginação)
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.infiniteScroll = infiniteScroll;
+    this.carregarFilmes(true);
+  }
+
+  carregarFilmes(newPage: boolean = false) {
     this.abreCarregamento();
-    this.movieProvider.getLatestMovies().subscribe(
+    this.movieProvider.getLatestMovies(this.page).subscribe(
       data => {
-        this.listaFilmes = data['results'];
+        // verifica se esta carregando novos filmes(newPage)
+        if(newPage){
+          this.listaFilmes = this.listaFilmes.concat( data['results']);
+          this.infiniteScroll.complete();
+        } else {
+          this.listaFilmes = data['results'];
+        }
+
+        
         console.log(this.listaFilmes);
         this.fechaCarregamento();
         // se isRefleshing estiver rodando faça...
-        if(this.isRefleshing){
+        if (this.isRefleshing) {
           // fecha efeito reflesher
-          this.refresher.complete(); 
+          this.refresher.complete();
           this.isRefleshing = true;
         }
       },
@@ -88,6 +105,6 @@ export class FeedPage {
 
   abrirDetalhes(filme) {
     //console.log(filme);
-    this.navCtrl.push(FilmeDetalhesPage, {id: filme.id});
+    this.navCtrl.push(FilmeDetalhesPage, { id: filme.id });
   }
 }
