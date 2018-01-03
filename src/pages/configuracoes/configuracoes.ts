@@ -4,7 +4,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { HomePage } from './../home/home';
 import { PerfilPage } from '../perfil/perfil';
 import { SobrePage } from './../sobre/sobre';
 

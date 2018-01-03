@@ -22,15 +22,13 @@ import { MovieProvider } from './../../providers/movie/movie';
 export class FeedPage {
 
   public objetoFeed = {
-    titulo: 'Nelson Júnior',
-    data: 'Janeiro 02, 2018',
-    descricao: 'Criando APP BBP!!!',
-    qntLikes: 21,
     qntComments: 3,
     dataComments: '11h, ago',
   }
 
   public loader;
+  public refresher;
+  public isRefleshing: boolean = false;
   public listaFilmes = new  Array<any>();
 
   constructor(public navCtrl: NavController, 
@@ -42,20 +40,10 @@ export class FeedPage {
 
   // ionViewDidEnter => sempre que entrar na pagina
   ionViewDidEnter() {
-    this.abreCarregamento();
-    this.movieProvider.getLatestMovies().subscribe(
-      data => {
-        this.listaFilmes = data['results'];
-        console.log(this.listaFilmes);
-        this.fechaCarregamento();
-      },
-      error => {
-        console.log(error);
-        this.fechaCarregamento();
-      }
-    );
+    this.carregarFilmes();
   }
 
+  // efeito de loadindg
   abreCarregamento() {
     this.loader = this.loadingCtrl.create({
       content: "Carregando...",
@@ -64,7 +52,34 @@ export class FeedPage {
     this.loader.present();
   }
 
+  // interrompe efeito loading
   fechaCarregamento() {
     this.loader.dismiss();
+  }
+
+  // efeito refresh
+  doRefresh(refresher) {
+    this.refresher = refresher;
+    this.isRefleshing = true;
+    this.carregarFilmes();
+  }
+
+  carregarFilmes() {
+    this.abreCarregamento();
+    this.movieProvider.getLatestMovies().subscribe(
+      data => {
+        this.listaFilmes = data['results'];
+        console.log(this.listaFilmes);
+        this.fechaCarregamento();
+        if(this.isRefleshing){
+          this.refresher.complete();
+          this.isRefleshing = true;
+        }
+      },
+      error => {
+        console.log(error);
+        this.fechaCarregamento();
+      }
+    );
   }
 }

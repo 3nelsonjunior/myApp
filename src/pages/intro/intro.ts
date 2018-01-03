@@ -22,12 +22,6 @@ export class IntroPage {
               public navParams: NavParams) {
   }
 
-  /*
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad IntroPage');
-  }
-  */
-
   // ir para as paginas (sair da intro)
   public goToTabsPage(){
     this.navCtrl.push(TabsPage);
