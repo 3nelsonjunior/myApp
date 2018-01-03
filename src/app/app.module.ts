@@ -12,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { ConfiguracoesPageModule } from './../pages/configuracoes/configuracoes.module';
 import { FeedPageModule } from './../pages/feed/feed.module';
+import { FilmeDetalhesPageModule } from './../pages/filme-detalhes/filme-detalhes.module';
 import { IntroPageModule } from './../pages/intro/intro.module';
 import { PerfilPageModule } from './../pages/perfil/perfil.module';
 import { SobrePageModule } from './../pages/sobre/sobre.module';
@@ -39,6 +40,7 @@ import { MovieProvider } from '../providers/movie/movie';
     ConfiguracoesPageModule,
     SobrePageModule,
     PerfilPageModule,
+    FilmeDetalhesPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

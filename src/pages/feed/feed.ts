@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 
 import { MovieProvider } from './../../providers/movie/movie';
 
+import { FilmeDetalhesPage } from './../filme-detalhes/filme-detalhes';
+
 /**
  * Generated class for the FeedPage page.
  *
@@ -47,7 +49,6 @@ export class FeedPage {
   abreCarregamento() {
     this.loader = this.loadingCtrl.create({
       content: "Carregando...",
-      // duration: 3000
     });
     this.loader.present();
   }
@@ -71,8 +72,10 @@ export class FeedPage {
         this.listaFilmes = data['results'];
         console.log(this.listaFilmes);
         this.fechaCarregamento();
+        // se isRefleshing estiver rodando faça...
         if(this.isRefleshing){
-          this.refresher.complete();
+          // fecha efeito reflesher
+          this.refresher.complete(); 
           this.isRefleshing = true;
         }
       },
@@ -81,5 +84,10 @@ export class FeedPage {
         this.fechaCarregamento();
       }
     );
+  }
+
+  abrirDetalhes(filme) {
+    //console.log(filme);
+    this.navCtrl.push(FilmeDetalhesPage, {id: filme.id});
   }
 }
